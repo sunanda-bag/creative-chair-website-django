@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chaisart creations | Home {% endblock title %}
+{% block short %}Chaisart creations{% endblock short %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/templatemo-sixteen.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.css' %}">
+{% endblock css %}
+
+{% block body %}
+
+
+<script>
+   addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+   }, false);
+
+   function hideURLbar() {
+      window.scrollTo(0, 1);
+   }
+</script>
+
+<script type="text/javascript">
+   var user = '{{request.user}}'
+   console.log(user)
+
+   function getToken(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+         var cookies = document.cookie.split(';');
+         for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+               break;
+            }
+         }
+      }
+      return cookieValue;
+   }
+   var csrftoken = getToken('csrftoken')
+
+
+   function getCookie(name) {
+      // Split cookie string and get all individual name=value pairs in an array
+      var cookieArr = document.cookie.split(";");
+
+      // Loop through the array elements
+      for (var i = 0; i < cookieArr.length; i++) {
+         var cookiePair = cookieArr[i].split("=");
+
+         /* Removing whitespace at the beginning of the cookie name
+         and compare it with the given string */
+         if (name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+         }
+      }
+
+      // Return null if not found
+      return null;
+   }
+
+   var cart = JSON.parse(getCookie('cart'))
+
+   if (cart == undefined) {
+      cart = {}
+      console.log('Cart Created!', cart)
+      document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+   }
+   console.log('Cart:', cart)
+
+
+</script>
+
+
+<!-- about -->
+<section class="about py-lg-4 py-md-3 py-sm-3 py-3" id="about">
+   <div class="container py-lg-5 py-md-5 py-sm-4 py-4">
+      <h3 class="title text-center mb-lg-5 mb-md-4  mb-sm-4 mb-3">Best Products</h3>
+      <div class="row banner-below-w3l">
+
+         {% for product in object_list %}
+         <div class="col-lg-4 col-md-6 col-sm-6 text-center banner-agile-flowers">
+            <a href="{{product.get_absolute_url}}"> <img src="{{product.imageURL}}" class="img-thumbnail" alt=""></a>
+            <div class="banner-right-icon">
+               <h4 class="pt-3">{{product.title}}</h4>
+            </div>
+         </div>
+         {% endfor %}
+
+         <div class="toys-grids-upper">
+            <div class="about-toys-off">
+               <h2>Get Up to <span>70% Off </span>On Selected Products</h2>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- //about -->
+
+<!--new Arrivals -->
+<section class="blog py-lg-4 py-md-3 py-sm-3 py-3">
+   <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+      <h3 class="title clr text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">New Arrivals</h3>
+      <div class="slid-img">
+         <ul id="flexiselDemo1">
+            {% for product in object_list %}
+            <li>
+               <div class="agileinfo_port_grid">
+                  <img src="{{product.imageURL}}" alt=" " class="img-fluid my-3 mx-3" style="width: 80%;" />
+                  <div class="banner-right-icon">
+                     <h4 class="pt-3">{{product.title}}</h4>
+                  </div>
+                  <div class="outs_more-buttn">
+                     <a href="{{product.get_absolute_url}}">View</a>
+                  </div>
+               </div>
+            </li>
+            {% endfor %}
+
+         </ul>
+      </div>
+   </div>
+</section>
+<!--//about -->
+
+
+<!--Product-about-->
+<section class="about py-lg-4 py-md-3 py-sm-3 py-3">
+   <div class="container py-lg-5 py-md-5 py-sm-4 py-3">
+      <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">About Chaisart</h3>
+
+      <div class="best-features about-features">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="section-heading">
+                     <h2>Customize your decor?</h2>
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="right-image">
+                     <img class="img-fluid img-thumbnail" style="height: 375px;width: 400px;"
+                        src="{% static 'images/customize.jpg' %}" alt="">
+                  </div>
+               </div>
+               <div class="col-md-6">
+                  <div class="left-content">
+                     <br>
+                     <h4>We give a second life to old chairs</h4>
+                     <br>
+                     <p>From your photos, we can make a unique chair
+                        that will quickly become a topic of conversation
+                        <br><br>
+                     </p>
+                     <ul class="footer-social text-left mt-lg-4 mt-3">
+                        <li class="mx-1">
+                           <a href="#">
+                              <span class="fab fa-facebook-f"></span>
+                           </a>
+                        </li>
+                        <li class="">
+                           <a href="#">
+                              <span class="fab fa-twitter"></span>
+                           </a>
+                        </li>
+                        <li class="mx-1">
+                           <a href="#">
+                              <span class="fab fa-google-plus-g"></span>
+                           </a>
+                        </li>
+                        <li class="">
+                           <a href="#">
+                              <span class="fab fa-linkedin-in"></span>
+                           </a>
+                        </li>
+                        <li class="mx-1">
+                           <a href="#">
+                              <span class="fas fa-rss"></span>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</section>
+<!--//Product-about-->
+
+<!--js working-->
+<script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+<!--//js working-->
+<!-- cart-js -->
+<script src="{% static 'js/minicart.js' %}"></script>
+<script>
+   toys.render();
+
+   toys.cart.on('toys_checkout', function (evt) {
+      var items, len, i;
+
+      if (this.subtotal() > 0) {
+         items = this.items();
+
+         for (i = 0, len = items.length; i < len; i++) { }
+      }
+   });
+</script>
+<!-- //cart-js -->
+<!--responsiveslides banner-->
+<script src="{% static 'js/responsiveslides.min.js' %}"></script>
+<script>
+   // You can also use "$(window).load(function() {"
+   $(function () {
+      // Slideshow 4
+      $("#slider4").responsiveSlides({
+         auto: true,
+         pager: false,
+         nav: true,
+         speed: 900,
+         namespace: "callbacks",
+         before: function () {
+            $('.events').append("<li>before event fired.</li>");
+         },
+         after: function () {
+            $('.events').append("<li>after event fired.</li>");
+         }
+      });
+
+   });
+</script>
+<!--// responsiveslides banner-->
+<!--slider flexisel -->
+<script src="{% static 'js/jquery.flexisel.js' %}"></script>
+<script>
+   $(window).load(function () {
+      $("#flexiselDemo1").flexisel({
+         visibleItems: 3,
+         animationSpeed: 3000,
+         autoPlay: true,
+         autoPlaySpeed: 2000,
+         pauseOnHover: true,
+         enableResponsiveBreakpoints: true,
+         responsiveBreakpoints: {
+            portrait: {
+               changePoint: 480,
+               visibleItems: 1
+            },
+            landscape: {
+               changePoint: 640,
+               visibleItems: 2
+            },
+            tablet: {
+               changePoint: 768,
+               visibleItems: 2
+            }
+         }
+      });
+
+   });
+</script>
+<!-- //slider flexisel -->
+{% endblock body %}

@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chaisart creations|Product Detail{% endblock title %}
+{% block short %}Single Page{% endblock short %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui1.css' %}">
+<link href="{% static 'css/easy-responsive-tabs.css' %}" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="{% static 'css/flexslider.css' %}" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block body %}
+
+<!--//banner -->
+<!--/shop-->
+<section class="banner-bottom py-lg-5 py-3">
+   <div class="container">
+      <div class="inner-sec-shop pt-lg-4 pt-3">
+         <div class="row">
+            <div class="col-lg-4 single-right-left ">
+               <div class="grid images_3_of_2">
+                  <div class="flexslider1">
+                     <ul class="slides">
+                        
+                        <li data-thumb="{{product.imageURL}}">
+                           <div class="thumb-image"> <img src="{{product.imageURL}}"
+                                 data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                        </li>
+                      {% for product in object.productimage_set.all %}
+                        <li data-thumb="{{product.imageURL}}">
+                           <div class="thumb-image"> <img src="{{product.imageURL}}"
+                                 data-imagezoom="true" class="img-fluid" alt=" "> </div>
+                        </li>
+                        {% endfor %}
+                        
+                     </ul>
+                     <div class="clearfix"></div>
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-lg-8 single-right-left simpleCart_shelfItem">
+               <h3>{{object.title}}</h3>
+               {% if object.discount_price %}
+
+               <p>
+                  <span class="item_price">${{object.discount_price}}</span>
+                  <del>${{object.price}}</del>
+               </p>
+
+               {% else %}
+               <p>
+                  <span class="item_price">${{object.price}}</span>
+               </p>
+
+               {% endif %}
+               
+               
+               <div class="description">
+                  <p>{{object.description}}</p>
+
+                
+
+               </div>
+               
+               <div class="occasion-cart">
+                  <div class="toys single-item singlepage">
+                     
+                  </div>
+               </div>
+               <ul class="footer-social text-left mt-lg-4 mt-3">
+                  <li>Share On : </li>
+                  <li class="mx-1">
+                     <a href="#">
+                        <span class="fab fa-facebook-f"></span>
+                     </a>
+                  </li>
+                  <li class="">
+                     <a href="#">
+                        <span class="fab fa-twitter"></span>
+                     </a>
+                  </li>
+                  <li class="mx-1">
+                     <a href="#">
+                        <span class="fab fa-google-plus-g"></span>
+                     </a>
+                  </li>
+                  <li class="">
+                     <a href="#">
+                        <span class="fab fa-linkedin-in"></span>
+                     </a>
+                  </li>
+                  <li class="mx-1">
+                     <a href="#">
+                        <span class="fas fa-rss"></span>
+                     </a>
+                  </li>
+               </ul>
+            </div>
+            <div class="clearfix"> </div>
+            <!--/tabs-->
+            <div class="responsive_tabs">
+               <div id="horizontalTab">
+                  <ul class="resp-tabs-list">
+                     <li>Description</li>
+                     
+                     <li>Information</li>
+                  </ul>
+                  <div class="resp-tabs-container">
+                     <!--/tab_one-->
+                     <div class="tab1">
+                        <div class="single_page">
+                           <h6>{{object.title}}</h6>
+                           <p>{{object.sub_description}}
+                           </p>
+                           <br>
+                           <p>{{object.description}}
+                           </p>
+                           
+                        </div>
+                     </div>
+                     <!--//tab_one-->
+                     
+                     <div class="tab3">
+                        <div class="single_page">
+                           <h6>Teddy Bear(Blue)</h6>
+                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget
+                              nisl ullamcorper, molestie
+                              blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do
+                              eiusmod tempor incididunt
+                              ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                              ullamco. labore et dolore
+                              magna aliqua.
+                           </p>
+                           <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula
+                              augue eget nisl ullamcorper, molestie
+                              blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do
+                              eiusmod tempor incididunt
+                              ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                              ullamco. labore et dolore
+                              magna aliqua.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!--//tabs-->
+         </div>
+      </div>
+   </div>
+</section>
+
+{% endblock body %}
+
+
+
+{% block script %}
+
+<!--jQuery-->
+<script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+<!-- newsletter modal -->
+<!-- cart-js -->
+<script src="{% static 'js/minicart.js' %}"></script>
+<script>
+   toys.render();
+
+   toys.cart.on('toys_checkout', function (evt) {
+      var items, len, i;
+
+      if (this.subtotal() > 0) {
+         items = this.items();
+
+         for (i = 0, len = items.length; i < len; i++) { }
+      }
+   });
+</script>
+<!-- //cart-js -->
+<!-- price range (top products) -->
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script>
+   //<![CDATA[ 
+   $(window).load(function () {
+      $("#slider-range").slider({
+         range: true,
+         min: 0,
+         max: 9000,
+         values: [50, 6000],
+         slide: function (event, ui) {
+            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+         }
+      });
+      $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+   }); //]]>
+</script>
+<!-- //price range (top products) -->
+<!-- single -->
+<script src="{% static 'js/imagezoom.js' %}"></script>
+<!-- single -->
+<!-- script for responsive tabs -->
+<script src="{% static 'js/easy-responsive-tabs.js' %}"></script>
+<script>
+   $(document).ready(function () {
+      $('#horizontalTab').easyResponsiveTabs({
+         type: 'default', //Types: default, vertical, accordion           
+         width: 'auto', //auto or any width like 600px
+         fit: true, // 100% fit in a container
+         closed: 'accordion', // Start closed if in accordion view
+         activate: function (event) { // Callback function if tab is switched
+            var $tab = $(this);
+            var $info = $('#tabInfo');
+            var $name = $('span', $info);
+            $name.text($tab.text());
+            $info.show();
+         }
+      });
+      $('#verticalTab').easyResponsiveTabs({
+         type: 'vertical',
+         width: 'auto',
+         fit: true
+      });
+   });
+</script>
+<!-- FlexSlider -->
+<script src="{% static 'js/jquery.flexslider.js' %}"></script>
+<script>
+   // Can also be used with $(document).ready()
+   $(window).load(function () {
+      $('.flexslider1').flexslider({
+         animation: "slide",
+         controlNav: "thumbnails"
+      });
+   });
+</script>
+<!-- //FlexSlider-->
+
+{% endblock script %}

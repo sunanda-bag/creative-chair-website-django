@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chaisart creations|Shop {% endblock title %}
+{% block short %}Shop Now{% endblock short %}
+
+{% block css %}
+<!--price range-->
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui1.css' %}">
+<!--//price range-->
+{% endblock css %}
+
+{% block body %}
+
+<!--show Now-->
+<!--show Now-->
+<section class="container contact py-lg-4 py-md-3 py-sm-3 py-3">
+   <div class="container-fluid py-lg-5 py-md-4 py-sm-4 py-3">
+      <h3 class="title text-center mb-lg-5 mb-md-4 mb-sm-4 mb-3">My Shop</h3>
+      <div class="row">
+         
+         <div class="left-ads-display col-lg-12">
+            <div class="row">
+
+               {% for product in object_list %}
+
+               <div style="border-radius:10px;" class="col-lg-4 col-md-4 col-sm-6  product-men women_two">
+                  <div class="product-toys-info">
+                     <div class="men-pro-item">
+                        <div class="men-thumb-item">
+                           <img src="{{product.imageURL}}" class="img-thumbnail img-fluid" alt="">
+                           <div class="men-cart-pro">
+                              <div class="inner-men-cart-pro">
+                                 <a href="{{product.get_absolute_url}}" class="link-product-add-cart">Quick View</a>
+                              </div>
+                           </div>
+                           <span class="product-new-top">New</span>
+                        </div>
+                        <div class="item-info-product">
+                           <div class="info-product-price">
+                              <div class="grid_meta">
+                                 <div class="product_price">
+                                    <h4>
+                                       <a href="{{product.get_absolute_url}}">{{product.title}}</a>
+                                    </h4>
+                                    <p class="para"><small>{{product.sub_description|slice:50}}...</small></p>
+                                    <div class="grid-price mt-2">
+                                       <span class="money ">
+                                          {% if product.discount_price %}
+                                          ${{product.discount_price|floatformat:2}}
+                                          {% else %}
+                                          ${{product.price|floatformat:2}}
+                                          {% endif %}</span>
+                                    </div>
+                                 </div>
+                                 
+                              </div>
+
+                              
+
+                           </div>
+                           <div class="clearfix"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               {% endfor %}
+
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- //show Now-->
+
+{% endblock body %}
+
+
+
+{% block script %}
+
+<!--js working-->
+<script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+<!--//js working-->
+<!-- cart-js -->
+<script src="{% static 'js/minicart.js' %}"></script>
+<script>
+   toys.render();
+
+   toys.cart.on('toys_checkout', function (evt) {
+      var items, len, i;
+
+      if (this.subtotal() > 0) {
+         items = this.items();
+
+         for (i = 0, len = items.length; i < len; i++) { }
+      }
+   });
+</script>
+<!-- //cart-js -->
+<!-- price range (top products) -->
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script>
+   //<![CDATA[ 
+   $(window).load(function () {
+      $("#slider-range").slider({
+         range: true,
+         min: 0,
+         max: 9000,
+         values: [50, 6000],
+         slide: function (event, ui) {
+            $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+         }
+      });
+      $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+   }); //]]>
+</script>
+<!-- //price range (top products) -->
+
+
+{% endblock script %}
